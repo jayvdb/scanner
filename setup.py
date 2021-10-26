@@ -23,7 +23,7 @@ if popen.returncode != 0:
 if sys.platform.startswith('linux'):
     configure_options = ['./configure', '--disable-shared', '--with-pic']
 else:
-    configure_options = ['./configure', '--disable-shared']
+    configure_options = ['bash', './configure', '--disable-shared']
 
 os.chdir(libonig_dir + '/onig-5.9.4')
 popen = Popen(configure_options, stdout=PIPE, stderr=PIPE)
