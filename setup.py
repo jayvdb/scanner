@@ -17,8 +17,8 @@ os.chdir(libonig_dir)
 popen = Popen(['tar', 'zxvf', libonig_dir + '/onig-5.9.4.tar.gz'], stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = popen.communicate()
 if popen.returncode != 0:
-    print(stderrdata)
-    sys.exit()
+    print('Failed tar', stderrdata)
+    sys.exit(1)
 
 if sys.platform.startswith('linux'):
     configure_options = ['./configure', '--disable-shared', '--with-pic']
@@ -29,15 +29,15 @@ os.chdir(libonig_dir + '/onig-5.9.4')
 popen = Popen(configure_options, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = popen.communicate()
 if popen.returncode != 0:
-    print(stderrdata)
-    sys.exit()
+    print('Failed configure', stderrdata)
+    sys.exit(1)
 print(stdoutdata)
 
 popen = Popen(['make'], stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = popen.communicate()
 if popen.returncode != 0:
-    print(stderrdata)
-    sys.exit()
+    print('Failed make', stderrdata)
+    sys.exit(1)
 print(stdoutdata)
 
 shutil.copy('.libs/libonig.a', libonig_dir)
