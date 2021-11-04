@@ -29,7 +29,7 @@ os.chdir(libonig_dir + '/onig-5.9.4')
 popen = Popen(configure_options, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = popen.communicate()
 if popen.returncode != 0:
-    print('Failed configure', stderrdata)
+    print('Failed configure', popen.returncode, stdoutdata, stderrdata)
     sys.exit(1)
 print(stdoutdata)
 
