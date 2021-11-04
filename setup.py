@@ -8,13 +8,14 @@ from subprocess import Popen, PIPE
 
 NAME = 'scanner'
 VERSION = '0.1.0'
+ONIG_VERSION = '6.9.7.1'
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 libonig_dir = os.path.join(cwd, 'vendor')
-libonig_include = os.path.join(cwd, 'vendor', 'onig-5.9.4')
+libonig_include = os.path.join(cwd, 'vendor', 'onig-' + ONIG_VERSION)
 libonig_lib = os.path.join(cwd, 'vendor')
 os.chdir(libonig_dir)
-popen = Popen(['tar', 'zxvf', libonig_dir + '/onig-5.9.4.tar.gz'], stdout=PIPE, stderr=PIPE)
+popen = Popen(['tar', 'zxvf', libonig_dir + '/onig-' + ONIG_VERSION + '.tar.gz'], stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = popen.communicate()
 if popen.returncode != 0:
     print('Failed tar', stderrdata)
@@ -25,7 +26,7 @@ if sys.platform.startswith('linux'):
 else:
     configure_options = ['bash', './configure', '--disable-shared']
 
-os.chdir(libonig_dir + '/onig-5.9.4')
+os.chdir(libonig_dir + '/onig-' + ONIG_VERSION)
 popen = Popen(configure_options, stdout=PIPE, stderr=PIPE)
 stdoutdata, stderrdata = popen.communicate()
 if popen.returncode != 0:
